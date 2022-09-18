@@ -22,6 +22,7 @@ class ProductPage extends StatelessWidget {
           : Padding(
               padding: const EdgeInsets.all(8.0),
               child: ListView.builder(
+                controller: _productPageController.scrollController,
                   itemCount: _productPageController.lsDataProduct.length + 1,
                   itemBuilder: (context, index) {
                     if (index == _productPageController.lsDataProduct.length) {
@@ -31,7 +32,7 @@ class ProductPage extends StatelessWidget {
                     } else {
                       return GestureDetector(
                         onTap: () {
-                          _productPageController.toEditPage('edit', index);
+                          _productPageController.toEditPage(index);
                         },
                         child: Card(
                             elevation: 5,
@@ -147,7 +148,7 @@ class ProductPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Colors.green,
           onPressed: () {
-            _productPageController.toAddPage('create');
+            _productPageController.toAddPage();
           },
           label: const Text('Add Product')),
     );

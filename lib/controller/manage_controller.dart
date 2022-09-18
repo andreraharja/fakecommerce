@@ -11,13 +11,16 @@ class ManagePageController extends GetxController {
   var txtPrice = TextEditingController().obs;
   var txtImage = TextEditingController().obs;
   var image = File("").obs;
+  final picker = ImagePicker();
+  String mode = "";
 
   ManagePageController(this.arguments);
   dynamic arguments;
 
   @override
   void onInit() {
-    if (arguments[0] == 'edit') {
+    mode = arguments[0];
+    if (mode == 'edit') {
       txtTitle.value.text = arguments[1][arguments[2]].title;
       txtCategory.value.text = arguments[1][arguments[2]].category;
       txtDescription.value.text = arguments[1][arguments[2]].description;
@@ -124,7 +127,6 @@ class ManagePageController extends GetxController {
   }
 
   void uploadImage() {
-    final picker = ImagePicker();
     Get.dialog(
         AlertDialog(content: const Text("Pick Source Image"), actions: <Widget>[
       TextButton(

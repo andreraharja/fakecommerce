@@ -16,7 +16,7 @@ class ManagePage extends StatelessWidget {
       },
       child: WillPopScope(
         onWillPop: () async {
-          if (Get.arguments[0] == 'create') {
+          if (_managePageController.mode == 'create') {
             Get.back(result: null);
           } else {
             Get.back(result: []);
@@ -27,9 +27,9 @@ class ManagePage extends StatelessWidget {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             title: Text(
-                Get.arguments[0] == 'create' ? 'Add Prodcut' : 'Edit Product'),
+                _managePageController.mode == 'create' ? 'Add Prodcut' : 'Edit Product'),
             actions: [
-              Get.arguments[0] == 'create'
+              _managePageController.mode == 'create'
                   ? Container()
                   : GestureDetector(
                       onTap: () {
@@ -122,14 +122,14 @@ class ManagePage extends StatelessWidget {
                               ElevatedButton.styleFrom(primary: Colors.green),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              if (Get.arguments[0] == 'create') {
+                              if (_managePageController.mode == 'create') {
                                 _managePageController.addProdcut();
                               } else {
                                 _managePageController.updateProdcut();
                               }
                             }
                           },
-                          child: Text(Get.arguments[0] == 'create'
+                          child: Text(_managePageController.mode == 'create'
                               ? 'Add Product'
                               : 'Update Product')),
                     )
