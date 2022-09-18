@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 
 class ProductPage extends StatelessWidget {
   ProductPage({Key? key}) : super(key: key);
-  final ProductPageController _productPageController = Get.put(ProductPageController());
+  final ProductPageController _productPageController =
+      Get.put(ProductPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,90 +27,115 @@ class ProductPage extends StatelessWidget {
                         height: context.height * 0.1,
                       );
                     } else {
-                      return Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: context.width * 0.3,
-                                  child: Column(
-                                    children: [
-                                      Row(
+                      return GestureDetector(
+                        onTap: () {
+                          _productPageController.toEditPage('edit', index);
+                        },
+                        child: Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    SizedBox(
+                                      width: context.width * 0.3,
+                                      child: Column(
                                         children: [
-                                          const Icon(Icons.attach_money),
-                                          Text(_productPageController
-                                              .lsDataProduct[index].price
-                                              .toString())
+                                          Row(
+                                            children: [
+                                              const Icon(Icons.attach_money),
+                                              Text(_productPageController
+                                                  .lsDataProduct[index].price
+                                                  .toString())
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: context.height * 0.15,
+                                            child: Image.network(
+                                                _productPageController
+                                                    .lsDataProduct[index]
+                                                    .image!,
+                                                fit: BoxFit.fitHeight),
+                                          ),
                                         ],
                                       ),
-                                      SizedBox(
-                                        height: context.height * 0.15,
-                                        child: Image.network(
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
                                             _productPageController
-                                                .lsDataProduct[index].image!,
-                                            fit: BoxFit.fitHeight),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        _productPageController
-                                            .lsDataProduct[index].title!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle2,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        _productPageController
-                                            .lsDataProduct[index].description!,
-                                        maxLines: 3,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            color: Colors.green,
+                                                .lsDataProduct[index].title!,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2,
                                           ),
                                           const SizedBox(
-                                            width: 5,
+                                            height: 10,
                                           ),
-                                          Text(_productPageController
-                                              .lsDataProduct[index].rating!.rate
-                                              .toString()),
+                                          Expanded(
+                                            child: Text(
+                                              _productPageController
+                                                  .lsDataProduct[index]
+                                                  .description!,
+                                              maxLines: 3,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                           const SizedBox(
-                                            width: 15,
+                                            height: 10,
                                           ),
+                                          _productPageController
+                                                      .lsDataProduct[index]
+                                                      .rating ==
+                                                  null
+                                              ? Container()
+                                              : Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.star,
+                                                      color: Colors.green,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(_productPageController
+                                                        .lsDataProduct[index]
+                                                        .rating!
+                                                        .rate
+                                                        .toString()),
+                                                    const SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                  ],
+                                                ),
                                         ],
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ));
+                              ),
+                            )),
+                      );
                     }
                   }),
             )),
       floatingActionButton: FloatingActionButton.extended(
+          backgroundColor: Colors.green,
           onPressed: () {
-            
-          }, label: const Text('Add Product')),
+            _productPageController.toAddPage('create');
+          },
+          label: const Text('Add Product')),
     );
   }
 }

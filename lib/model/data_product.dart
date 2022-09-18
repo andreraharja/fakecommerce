@@ -58,4 +58,45 @@ class DataProduct {
       return [];
     }
   }
+
+  Future<DataProduct> addDataProduct(DataProduct dataProduct) async {
+    // Response response = await _dio.post("https://fakestoreapi.com/products", data: );
+    Response response = await _dio.request(
+      'https://fakestoreapi.com/products',
+      data: dataProduct,
+      options: Options(method: 'POST'),
+    );
+    if (response.statusCode == 200) {
+      return DataProduct.fromJson(response.data);
+    } else {
+      return DataProduct();
+    }
+  }
+
+  Future<DataProduct> updateDataProduct(DataProduct dataProduct) async {
+    // Response response = await _dio.post("https://fakestoreapi.com/products", data: );
+    Response response = await _dio.request(
+      'https://fakestoreapi.com/products/' + dataProduct.id.toString(),
+      data: dataProduct,
+      options: Options(method: 'PUT'),
+    );
+    if (response.statusCode == 200) {
+      return DataProduct.fromJson(response.data);
+    } else {
+      return DataProduct();
+    }
+  }
+
+  Future<DataProduct> deleteDataProduct(int idDataProduct) async {
+    // Response response = await _dio.post("https://fakestoreapi.com/products", data: );
+    Response response = await _dio.request(
+      'https://fakestoreapi.com/products/' + idDataProduct.toString(),
+      options: Options(method: 'DELETE'),
+    );
+    if (response.statusCode == 200) {
+      return DataProduct.fromJson(response.data);
+    } else {
+      return DataProduct();
+    }
+  }
 }
