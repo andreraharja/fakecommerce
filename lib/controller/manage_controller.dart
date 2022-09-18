@@ -1,6 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:image_picker/image_picker.dart';
 import '../model/data_product.dart';
 
 class ManagePageController extends GetxController {
@@ -9,6 +10,7 @@ class ManagePageController extends GetxController {
   var txtDescription = TextEditingController().obs;
   var txtPrice = TextEditingController().obs;
   var txtImage = TextEditingController().obs;
+  var image = File("").obs;
 
   ManagePageController(this.arguments);
   dynamic arguments;
@@ -41,8 +43,7 @@ class ManagePageController extends GetxController {
         title: txtTitle.value.text,
         category: txtCategory.value.text,
         description: txtDescription.value.text,
-        image:
-            'https://digitalsense.co.id/wp-content/uploads/2019/06/new-product.png.webp',
+        image: txtImage.value.text,
         price: double.parse(txtPrice.value.text)));
 
     txtTitle.value.clear();
@@ -120,5 +121,36 @@ class ManagePageController extends GetxController {
             },
           ),
         ]));
+  }
+
+  void uploadImage() {
+    final picker = ImagePicker();
+    Get.dialog(
+        AlertDialog(content: const Text("Pick Source Image"), actions: <Widget>[
+      TextButton(
+        child: const Text("Camera"),
+        onPressed: () async {
+          Get.back();
+          final pickedFile = await picker.pickImage(
+              source: ImageSource.camera, imageQuality: 25);
+          if (pickedFile != null) {
+            image.value = File(pickedFile.path);
+            txtImage.value.text = pickedFile.path;
+          }
+        },
+      ),
+      TextButton(
+        child: const Text("Gallery"),
+        onPressed: () async {
+          Get.back();
+          final pickedFile = await picker.pickImage(
+              source: ImageSource.gallery, imageQuality: 25);
+          if (pickedFile != null) {
+            image.value = File(pickedFile.path);
+            txtImage.value.text = pickedFile.path;
+          }
+        },
+      ),
+    ]));
   }
 }

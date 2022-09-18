@@ -53,6 +53,7 @@ class ManagePage extends StatelessWidget {
                 child: Column(
                   children: [
                     TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: _managePageController.txtTitle.value,
                       decoration: const InputDecoration(label: Text('Title')),
                       validator: (value) => value!.trim().isEmpty
@@ -63,6 +64,7 @@ class ManagePage extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: _managePageController.txtCategory.value,
                       decoration:
                           const InputDecoration(label: Text('Category')),
@@ -74,6 +76,7 @@ class ManagePage extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
+                      textInputAction: TextInputAction.next,
                       controller: _managePageController.txtDescription.value,
                       decoration:
                           const InputDecoration(label: Text('Description')),
@@ -85,16 +88,22 @@ class ManagePage extends StatelessWidget {
                       height: 10,
                     ),
                     TextFormField(
-                      controller: _managePageController.txtImage.value,
-                      decoration: const InputDecoration(label: Text('Image')),
+                      onTap: () {
+                        _managePageController.uploadImage();
+                      },
                       validator: (value) => value!.trim().isEmpty
                           ? 'Image Product Required'
                           : null,
+                      controller: _managePageController.txtImage.value,
+                      readOnly: true,
+                      maxLines: null,
+                      decoration: const InputDecoration(labelText: 'Image'),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     TextFormField(
+                      textInputAction: TextInputAction.done,
                       controller: _managePageController.txtPrice.value,
                       keyboardType: const TextInputType.numberWithOptions(
                           decimal: false, signed: false),

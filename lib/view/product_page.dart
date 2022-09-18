@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fakecommerce/controller/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -52,14 +54,26 @@ class ProductPage extends StatelessWidget {
                                                   .toString())
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: context.height * 0.15,
-                                            child: Image.network(
-                                                _productPageController
-                                                    .lsDataProduct[index]
-                                                    .image!,
-                                                fit: BoxFit.fitHeight),
+                                          const SizedBox(
+                                            height: 5,
                                           ),
+                                          _productPageController
+                                                  .lsDataProduct[index].image!
+                                                  .contains("http")
+                                              ? SizedBox(
+                                                  height: context.height * 0.15,
+                                                  child: Image.network(
+                                                      _productPageController
+                                                          .lsDataProduct[index]
+                                                          .image!),
+                                                )
+                                              : SizedBox(
+                                                  height: context.height * 0.15,
+                                                  child: Image.file(
+                                                    File(_productPageController
+                                                        .lsDataProduct[index]
+                                                        .image!),
+                                                  )),
                                         ],
                                       ),
                                     ),
