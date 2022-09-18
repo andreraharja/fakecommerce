@@ -1,5 +1,5 @@
 import 'package:fakecommerce/model/data_product.dart';
-import 'package:fakecommerce/view/manage_page.dart';
+import 'package:fakecommerce/view/manage/manage_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
