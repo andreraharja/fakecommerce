@@ -87,21 +87,38 @@ class ManagePageController extends GetxController {
   }
 
   void deleteProduct() async {
-    Get.dialog(
-        WillPopScope(
-          onWillPop: () async {
-            return false;
-          },
-          child: const Center(
-            child: CircularProgressIndicator(),
+    Get.dialog(AlertDialog(
+        title: const Text("Message"),
+        content: const Text("Delete this product ?"),
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Yes"),
+            onPressed: () async {
+              Get.dialog(
+                  WillPopScope(
+                    onWillPop: () async {
+                      return false;
+                    },
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                  barrierDismissible: false);
+
+              DataProduct deleteDataProduct = await DataProduct()
+                  .deleteDataProduct(arguments[1][arguments[2]].id);
+
+              Get.back();
+              Get.back();
+              Get.back(result: ['delete', deleteDataProduct]);
+            },
           ),
-        ),
-        barrierDismissible: false);
-
-    DataProduct deleteDataProduct =
-        await DataProduct().deleteDataProduct(arguments[1][arguments[2]].id);
-
-    Get.back();
-    Get.back(result: ['delete', deleteDataProduct]);
+          TextButton(
+            child: const Text("No"),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ]));
   }
 }
