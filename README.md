@@ -23,6 +23,7 @@
 ## Library Used
 - dio: ^4.0.6
 - get: ^4.6.5
+- image_picker: ^0.8.5+3
 
 ## Features
 - Input Data Product

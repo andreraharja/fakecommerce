@@ -13,7 +13,7 @@ class ProductList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return Obx(() => ListView.builder(
         controller: _productPageController.scrollController,
         itemCount: _productPageController.lsDataProduct.length + 1,
         itemBuilder: (context, index) {
@@ -32,6 +32,6 @@ class ProductList extends StatelessWidget {
               ),
             );
           }
-        });
+        }));
   }
 }
