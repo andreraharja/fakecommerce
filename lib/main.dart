@@ -1,4 +1,4 @@
-import 'package:fakecommerce/view/homepage/homepage_main.dart';
+import 'package:fakecommerce/view/product_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           appBarTheme: const AppBarTheme(color: Colors.green)),
       debugShowCheckedModeBanner: false,
       title: 'FakeCommmerce',
-      home: HomePage(),
+      home: ProductPage(),
     );
   }
 }

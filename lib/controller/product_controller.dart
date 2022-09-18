@@ -1,7 +1,7 @@
 import 'package:fakecommerce/model/data_product.dart';
 import 'package:get/get.dart';
 
-class HomePageController extends GetxController{
+class ProductPageController extends GetxController{
   var lsDataProduct = List<DataProduct>.empty().obs;
   var isLoading = true.obs;
 
